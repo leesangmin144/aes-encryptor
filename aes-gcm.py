@@ -42,7 +42,7 @@ def encrypt_file(file_name, password):
     # IV + TAG + 암호문을 hex 문자열로 변환
     encrypted_data = (iv + tag + ciphertext).hex()
     
-    encrypted_file = file_name + '.enc'
+    encrypted_file = file_name + '_gcm.enc'
     encrypted_path = os.path.join(os.getcwd(), encrypted_file)
     with open(encrypted_path, 'w') as f:
         f.write(encrypted_data)
@@ -71,7 +71,7 @@ def decrypt_file(file_name, password):
     
     try:
         plaintext = cipher.decrypt_and_verify(ciphertext, tag)
-        decrypted_file = file_name.replace('.enc', '')
+        decrypted_file = file_name.replace('_gcm.enc', '')
         decrypted_path = os.path.join(os.getcwd(), decrypted_file)
         
         with open(decrypted_path, 'wb') as f:
